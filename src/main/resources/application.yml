@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: "udemy.spring.security"
+  server:
+    port: 8080
+  security:
+    user:
+      name: "user"
+      password: "1234"
+      roles: {role_viewer}
