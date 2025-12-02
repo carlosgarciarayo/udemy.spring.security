@@ -24,18 +24,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout del código
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    # Checkout del código
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Necesario para eliminar ramas remotas
 
-      # Configurar JDK
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: maven
+    # Configurar JDK
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
 
-      # Build con Maven
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
+    # Build con Maven
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+
+    # Eliminar rama feature si es merge a develop
+    - name: Delete feature branch on merge to develop
+      if: github.ref == 'refs/heads/develop' && startsWith(github.event.head_commit.message, 'Merge branch \'feature/')
+      run: |
+        BRANCH_NAME=$(echo "${GITHUB_HEAD_REF:-${GITHUB_REF##*/}}")
+        echo "Deleting remote branch $BRANCH_NAME"
+        git push origin --delete $BRANCH_NAME
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
