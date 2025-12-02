@@ -17,6 +17,5 @@ public class AboutUsController {
     @GetMapping
     public Map<String,String> aboutUs(){
         return Collections.singletonMap("msj","aboutUs");
-
     }
 }
