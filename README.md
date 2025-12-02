@@ -8,3 +8,4 @@ Elementos clave:
 - Authentication Object: Representa la identidad del usuario en Spring Security.
 - SecurityContextHolder: Mantiene la información de seguridad durante la petición.
 - Controlador/Servicios: Protegidos por roles y permisos.
+

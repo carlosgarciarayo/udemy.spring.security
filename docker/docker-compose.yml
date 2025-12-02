@@ -1,0 +1,34 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: wso2-postgres
+    environment:
+      POSTGRES_DB: apimgtdb
+      POSTGRES_USER: wso2user
+      POSTGRES_PASSWORD: wso2pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  wso2am:
+    image: wso2/wso2am:3.2.0
+    container_name: wso2am
+    depends_on:
+      - postgres
+    ports:
+      - "9443:9443"
+      - "9763:9763"
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=wso2user
+      - DB_PASSWORD=wso2pass
+    volumes:
+      - wso2repository:/home/wso2carbon/wso2am-3.2.0/repository
+      - wso2deployment:/home/wso2carbon/wso2am-3.2.0/repository/deployment/server
+
+volumes:
+  pgdata:
+  wso2repository:
+  wso2deployment:
