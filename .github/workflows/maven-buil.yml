@@ -1,13 +1,10 @@
 # This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
-
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
 # separate terms of service, privacy policy, and support
 # documentation.
-
 name: Java CI with Maven
-
 on:
   push:
     branches:
@@ -18,11 +15,9 @@ on:
     branches:
       - main
       - develop
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       # Checkout del código
       - name: Checkout repository
@@ -39,3 +34,27 @@ jobs:
       # Build con Maven
       - name: Build with Maven
         run: mvn -B package --file pom.xml
+
+  delete-feature-branch:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop' && startsWith(github.event.head_commit.message, 'Merge pull request')
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Delete merged feature branch
+        run: |
+          # Extraer el nombre de la rama del mensaje de commit
+          BRANCH_NAME=$(git log -1 --pretty=%B | grep -oP 'from \K[^ ]+' | sed 's|.*/||')
+          
+          if [[ $BRANCH_NAME == feature/* ]]; then
+            echo "Deleting branch: $BRANCH_NAME"
+            git push origin --delete $BRANCH_NAME || echo "Branch already deleted or does not exist"
+          else
+            echo "No feature branch to delete"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
