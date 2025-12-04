@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: spring-sample
+  name: udemy.spring.security
   namespace: default
 spec:
   selector:
-    app: spring-sample
+    app: udemy.spring.security
   ports:
     - protocol: TCP
       port: 80
