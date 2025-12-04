@@ -3,3 +3,6 @@ spring:
     name: "udemy.spring.security"
   server:
     port: 8085
+logging:
+  level:
+    root: INFO
