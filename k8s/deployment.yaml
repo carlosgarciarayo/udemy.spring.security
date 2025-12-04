@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: udemy.spring.security
+  name: udemy-spring-security
   namespace: default
   labels:
-    app: udemy.spring.security
+    app: udemy-spring-security
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: udemy.spring.security
+      app: udemy-spring-security
   template:
     metadata:
       labels:
-        app: udemy.spring.security
+        app: udemy-spring-security
     spec:
       containers:
-        - name: udemy.spring.security
+          name: udemy-spring-security
           image: registry.localhost:5000/udemy.spring.security:0.1
           imagePullPolicy: IfNotPresent
           ports:
