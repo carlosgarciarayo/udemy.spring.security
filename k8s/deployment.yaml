@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: udemy-spring-security
-          image: registry.localhost:5000/udemy.spring.security:0.1
+          image: 192.168.1.100:5000/udemy.spring.security:0.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
