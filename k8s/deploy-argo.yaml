@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: udemy.spring.security
+  name: udemy-spring-security
   namespace: argocd
 spec:
   project: default
