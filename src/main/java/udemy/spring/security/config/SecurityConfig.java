@@ -28,10 +28,10 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    UserDetailsService userDetailsService(DataSource dataSource){
-        return new JdbcUserDetailsManager(dataSource);
-    }
+//    @Bean
+//    UserDetailsService userDetailsService(DataSource dataSource){
+//        return new JdbcUserDetailsManager(dataSource);
+//    }
 
 
     @Bean

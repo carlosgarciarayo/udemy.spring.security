@@ -1,13 +1,7 @@
--- Datos iniciales para tablas users y authorities
+-----------------data------------------
 
-select * from;
+select * from customers;
 
-INSERT INTO users (username, password, enabled) VALUES
-    ('admin', '{noop}to_be_encoded', true),
-    ('user',  '{noop}to_be_encoded', true)
-ON CONFLICT (username) DO NOTHING;
-
-INSERT INTO authorities (username, authority) VALUES
-    ('admin', 'ROLE_ADMIN'),
-    ('user',  'ROLE_USER')
-ON CONFLICT DO NOTHING;
+insert into customers (email, pwd, rol) VALUES
+  ('super_user@debuggeandoieas.com', 'to_be_encoded', 'admin'),
+  ('basic_user@debuggeandoieas.com', 'to_be_encoded', 'user');
