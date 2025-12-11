@@ -1,4 +1,4 @@
-package udemy.spring.security.entites;
+package udemy.spring.security.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
