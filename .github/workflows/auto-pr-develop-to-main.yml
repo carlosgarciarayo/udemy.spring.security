@@ -1,0 +1,32 @@
+name: Auto PR develop → main
+
+on:
+  push:
+    branches:
+      - develop
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: main
+          head: develop
+          title: "Auto PR: develop → main"
+          body: |
+            Esta Pull Request se ha creado automáticamente.
+            
+            Cambios incluidos desde la rama **develop** hacia **main**.
+          labels: automated, develop
+          draft: false
